@@ -1,0 +1,77 @@
+import random
+
+# Definisikan respon-respon dari chatbot
+respon = {
+    "hello": ["Halo!", "Hai!", "Halo! Selamat datang di Dunia Ponsel Chisomo."],
+    "bye": ["Selamat tinggal!", "Sampai jumpa!", "Terima kasih telah mengunjungi Dunia Ponsel Chisomo!"],
+    "userName": ["Pilihan yang bagus! Mohon berikan nama Anda", "Pilihan yang bagus! Mohon beri kami nama Anda"],
+    "iphone": ["Tentu, kami memiliki iPhone 12, iPhone 13, dan iPhone 14 tersedia. Model mana yang Anda inginkan?"],
+    "samsung": ["Tentu, kami memiliki Samsung S20, Samsung S21, dan Samsung S22 tersedia. Model mana yang Anda inginkan?"],
+    "xiaomi": ["Maaf, ponsel Xiaomi tidak tersedia.", "Maaf, Xiaomi saat ini sedang habis."],
+    "location": ["Terima kasih, Mohon berikan alamat Anda sehingga kami dapat mengatur pengiriman.", "Terima kasih, Kami akan memerlukan alamat Anda untuk pengiriman."],
+    "phoneNumber": ["Terima kasih! Terakhir, mohon berikan nomor telepon Anda sehingga kami dapat menghubungi Anda.", "Terima kasih telah memberikan alamat Anda. Bisakah Anda juga memberikan nomor telepon untuk keperluan kontak?"],
+    "default": ["Maaf, saya tidak begitu mengerti. Bisakah Anda tolong ulangi?", "Saya tidak yakin saya mengerti. Bisakah Anda berikan lebih banyak detail?", "Saya di sini untuk membantu Anda dengan ponsel. Bisakah Anda memberi tahu saya lebih banyak tentang apa yang sedang Anda cari?"]
+}
+
+# Fungsi untuk mendapatkan respon berdasarkan input pengguna
+def dapatkan_respon(input_pengguna):
+    input_pengguna = input_pengguna.lower()
+    
+    for pola, daftar_respon in respon.items():
+        if pola in input_pengguna:
+            return random.choice(daftar_respon)
+    
+    return random.choice(respon["default"])
+
+# Fungsi utama untuk chatbot
+def utama():
+    print("ChatBot: Halo! Selamat datang di Gatget Collection.")
+    print("ChatBot: Apakah anda membutuhkan ponsel baru? Bagaimana dengan iPhone, Samsung, atau Xiaomi.")
+    
+    while True:
+        input_pengguna = input("Anda: ")
+        if input_pengguna.lower() == "keluar":
+            print("ChatBot: Terima kasih telah mengunjungi Gadget Collection. Semoga harimu menyenangkan!")
+            break
+        if input_pengguna.lower() == "terimakasih":
+            print("ChatBot: Terima kasih telah mengunjungi Gadget Collection. Semoga harimu menyenangkan!")
+            break
+
+        respon_chatbot = dapatkan_respon(input_pengguna)  
+        print("ChatBot:", respon_chatbot)
+        
+        if "iphone" in input_pengguna:
+            model_iphone = input("Anda: ")
+            print("ChatBot:", random.choice(respon["userName"]))
+            nama_pengguna = input("Anda: ")
+            print("ChatBot:", random.choice(respon["location"]))
+            alamat = input("Anda: ")
+            print("ChatBot:", random.choice(respon["phoneNumber"]))
+            nomor_telepon = input("Anda: ")
+            
+            # Buat file teks dengan detail pesanan
+            detail_pesanan = f"Detail Pesanan:\nModel Ponsel: iPhone {model_iphone}\nNama: {nama_pengguna} \nAlamat: {alamat}\nNomor Telepon: {nomor_telepon}\n"
+            with open(f"{nama_pengguna} pesanan.txt", "w") as file:
+                file.write(detail_pesanan)
+            
+            print(f"ChatBot: Terima kasih! Pesanan Anda telah ditempatkan dan detail pesanan telah disimpan ke '{nama_pengguna} pesanan.txt'. Kami akan segera menghubungi Anda untuk konfirmasi.")
+        
+        elif "samsung" in input_pengguna:
+            print("ChatBot:", random.choice(respon["userName"]))
+            nama_pengguna = input("Anda: ")
+            print("ChatBot:", random.choice(respon["location"]))
+            alamat = input("Anda: ")
+            print("ChatBot:", random.choice(respon["phoneNumber"]))
+            nomor_telepon = input("Anda: ")
+            
+            # Buat file teks dengan detail pesanan
+            detail_pesanan = f"Detail Pesanan:\nModel Ponsel: Samsung\nVarian: {input_pengguna}\nNama: {nama_pengguna} \nAlamat: {alamat}\nNomor Telepon: {nomor_telepon}\n"
+            with open(f"{nama_pengguna} pesanan.txt", "w") as file:
+                file.write(detail_pesanan)
+            
+            print(f"ChatBot: Terima kasih! Pesanan Anda telah ditempatkan dan detail pesanan telah disimpan ke '{nama_pengguna} pesanan.txt'. Kami akan segera menghubungi Anda untuk konfirmasi.")
+        
+
+# Jalankan chatbot
+if __name__ == "__main__":
+    utama()
